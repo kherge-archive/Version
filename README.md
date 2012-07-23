@@ -1,4 +1,4 @@
-# Wisdom
+# Version
 
 [![Build Status](https://secure.travis-ci.org/kherge/Version.png?branch=master)](http://travis-ci.org/kherge/Version)
 
