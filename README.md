@@ -18,13 +18,13 @@ To create an instance from an existing version string, pass it to the constructo
 
     <?php
 
-        $version = new Version('1.2.3-alpha.1+build.123');
+        $version = new KevinGH\Version\Version('1.2.3-alpha.1+build.123');
 
 Or you can create it from scratch using the available class methods:
 
     <?php
 
-        $version = new Version;
+        $version = new KevinGH\Version\Version;
     
         $version->setMajor(1);
         $version->setMinor(2);
@@ -48,8 +48,8 @@ You can also compare to version instances to each other:
 
     <?php
 
-        $a = new Version('1.0.0-beta.1');
-        $b = new Version('1.0.0');
+        $a = new KevinGH\Version\Version('1.0.0-beta.1');
+        $b = new KevinGH\Version\Version('1.0.0');
 
         echo $a->isEqualsTo($b) ? 'Yes' : 'No'; // "No"
         echo $a->isGreaterThan($b) ? 'Yes' : 'No'; // "No"
