@@ -118,18 +118,18 @@
             if ($this->patch > $patch) return -1;
             if ($this->patch < $patch) return 1;
 
-            if (empty($this->pre) && $pre)
-            {
-                return -1;
-            }
-
-            if ($this->pre && empty($pre))
-            {
-                return 1;
-            }
-
             if ($pre || $this->pre)
             {
+                if (empty($this->pre) && $pre)
+                {
+                    return -1;
+                }
+
+                if ($this->pre && empty($pre))
+                {
+                    return 1;
+                }
+
                 if (0 !== ($weight = $this->precedence($this->pre, $pre)))
                 {
                     return $weight;
@@ -185,6 +185,16 @@
         public function isLessThan(Version $version)
         {
             return $version->isGreaterThan($this);
+        }
+
+        /**
+         * Checks if the version is for a stable release.
+         *
+         * @return boolean TRUE if stable, FALSE if not.
+         */
+        public function isStable()
+        {
+            return empty($this->pre);
         }
 
         /**

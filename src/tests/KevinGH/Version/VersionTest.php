@@ -110,6 +110,18 @@
         }
 
         /**
+         * @dataProvider getGoodVersions
+         */
+        public function testStable($version)
+        {
+            $stable = ! (bool) strpos($version, '-');
+
+            $version = new Version($version);
+
+            $this->assertSame($stable, $version->isStable());
+        }
+
+        /**
          * @depends testDefaults
          */
         public function testSetMajor()
