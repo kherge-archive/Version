@@ -78,6 +78,7 @@
         /**
          * Generates a string using the current version information.
          *
+         * @api
          * @return string The string representation of the information.
          */
         public function __toString()
@@ -100,6 +101,7 @@
         /**
          * Compares one version to another.
          *
+         * @api
          * @param Version $version Another version.
          * @return -1 If this one is greater, 0 if equal, or 1 if $version is greater.
          */
@@ -155,8 +157,21 @@
         }
 
         /**
+         * Creates a new Version instance.
+         *
+         * @api
+         * @param string $string The string representation.
+         * @return Version The Version instance.
+         */
+        public static function create($string = '')
+        {
+            return new static($string);
+        }
+
+        /**
          * Checks if the version is equal to the given one.
          *
+         * @api
          * @param Version $version The version to compare against.
          * @return boolean TRUE if equal, FALSE if not.
          */
@@ -179,6 +194,7 @@
         /**
          * Checks if this version is less than the given one.
          *
+         * @api
          * @param Version $version The version to compare against.
          * @return boolean TRUE if less than, FALSE if not.
          */
@@ -200,6 +216,7 @@
         /**
          * Checks if the string is a valid string representation of a version.
          *
+         * @api
          * @param string $string The string.
          * @return boolean TRUE if valid, FALSE if not.
          */
@@ -211,6 +228,7 @@
         /**
          * Returns the build version information.
          *
+         * @api
          * @return array|null The build version information.
          */
         public function getBuild()
@@ -221,6 +239,7 @@
         /**
          * Returns the pre-release version information.
          *
+         * @api
          * @return array|null The pre-release version information.
          */
         public function getPreRelease()
@@ -231,6 +250,7 @@
         /**
          * Returns the major version number.
          *
+         * @api
          * @return integer The major version number.
          */
         public function getMajor()
@@ -241,6 +261,7 @@
         /**
          * Returns the minor version number.
          *
+         * @api
          * @return integer The minor version number.
          */
         public function getMinor()
@@ -251,6 +272,7 @@
         /**
          * Returns the patch version number.
          *
+         * @api
          * @return integer The patch version number.
          */
         public function getPatch()
@@ -259,12 +281,83 @@
         }
 
         /**
+         * Sets the build version information.
+         *
+         * @api
+         * @param array|integer|string $build The build version information.
+         */
+        public function setBuild($build)
+        {
+            $this->build = array_values((array) $build);
+
+            array_walk($this->build, function(&$v)
+            {
+                if (preg_match('/^[0-9]+$/', $v))
+                {
+                    $v = (int) $v;
+                }
+            });
+        }
+
+        /**
+         * Sets the pre-release version information.
+         *
+         * @api
+         * @param array|integer|string $pre The pre-release version information.
+         */
+        public function setPreRelease($pre)
+        {
+            $this->pre = array_values((array) $pre);
+
+            array_walk($this->pre, function(&$v)
+            {
+                if (preg_match('/^[0-9]+$/', $v))
+                {
+                    $v = (int) $v;
+                }
+            });
+        }
+
+        /**
+         * Sets the major version number.
+         *
+         * @api
+         * @param integer|string $major The major version number.
+         */
+        public function setMajor($major)
+        {
+            $this->major = (int) $major;
+        }
+
+        /**
+         * Sets the minor version number.
+         *
+         * @api
+         * @param integer|string $minor The minor version number.
+         */
+        public function setMinor($minor)
+        {
+            $this->minor = (int) $minor;
+        }
+
+        /**
+         * Sets the patch version number.
+         *
+         * @api
+         * @param integer|string $patch The patch version number.
+         */
+        public function setPatch($patch)
+        {
+            $this->patch = (int) $patch;
+        }
+
+        /**
          * Parses the version string, replacing current any data.
          *
          * @throws InvalidArgumentException If the string is invalid.
          * @param string $string The string representation.
          */
-        public function parseString($string)
+        protected function parseString($string)
         {
             $this->build = null;
             $this->major = 0;
@@ -310,79 +403,13 @@
         }
 
         /**
-         * Sets the build version information.
-         *
-         * @param array|integer|string $build The build version information.
-         */
-        public function setBuild($build)
-        {
-            $this->build = array_values((array) $build);
-
-            array_walk($this->build, function(&$v)
-            {
-                if (preg_match('/^[0-9]+$/', $v))
-                {
-                    $v = (int) $v;
-                }
-            });
-        }
-
-        /**
-         * Sets the pre-release version information.
-         *
-         * @param array|integer|string $pre The pre-release version information.
-         */
-        public function setPreRelease($pre)
-        {
-            $this->pre = array_values((array) $pre);
-
-            array_walk($this->pre, function(&$v)
-            {
-                if (preg_match('/^[0-9]+$/', $v))
-                {
-                    $v = (int) $v;
-                }
-            });
-        }
-
-        /**
-         * Sets the major version number.
-         *
-         * @param integer|string $major The major version number.
-         */
-        public function setMajor($major)
-        {
-            $this->major = (int) $major;
-        }
-
-        /**
-         * Sets the minor version number.
-         *
-         * @param integer|string $minor The minor version number.
-         */
-        public function setMinor($minor)
-        {
-            $this->minor = (int) $minor;
-        }
-
-        /**
-         * Sets the patch version number.
-         *
-         * @param integer|string $patch The patch version number.
-         */
-        public function setPatch($patch)
-        {
-            $this->patch = (int) $patch;
-        }
-
-        /**
          * Checks the precedence of each data set.
          *
          * @param array $a A data set.
          * @param array $b A data set.
          * @return integer -1 if $a > $b, 0 if $a = $b, 1 if $a < $b.
          */
-        private function precedence($a, $b)
+        protected function precedence($a, $b)
         {
             if (count($a) > count($b))
             {

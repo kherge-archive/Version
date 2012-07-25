@@ -15,6 +15,20 @@
 
     class VersionTest extends PHPUnit_Framework_TestCase
     {
+        public function testCreate()
+        {
+            $this->assertInstanceOf(
+                'KevinGH\Version\Version',
+                $version = Version::create('1.0.0')
+            );
+
+            $this->assertEquals(1, $version->getMajor());
+            $this->assertEquals(0, $version->getMinor());
+            $this->assertEquals(0, $version->getPatch());
+            $this->assertNull($version->getPreRelease());
+            $this->assertNull($version->getBuild());
+        }
+
         /**
          * @dataProvider getGoodVersions
          */
