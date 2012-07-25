@@ -203,6 +203,7 @@
         {
             return array(
                 array('1.0.0-alpha', '1.0.0-alpha.1', 1),
+                array('1.0.0-alpha.1', '1.0.0-alpha.1.1', 1),
                 array('1.0.0-alpha.1', '1.0.0-beta.2', 1),
                 array('1.0.0-beta.2', '1.0.0-beta.11', 1),
                 array('1.0.0-beta.11', '1.0.0-rc.1', 1),
