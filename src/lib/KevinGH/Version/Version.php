@@ -180,7 +180,7 @@ class Version
      */
     public function isEqualTo(Version $version)
     {
-        return ((string) $this == (string) $version);
+        return ((string)$this == (string)$version);
     }
 
     /**
@@ -301,12 +301,12 @@ class Version
      */
     public function setBuild($build)
     {
-        $this->build = array_values((array) $build);
+        $this->build = array_values((array)$build);
 
         array_walk($this->build, function(&$v)
         {
             if (preg_match('/^[0-9]+$/', $v)) {
-                $v = (int) $v;
+                $v = (int)$v;
             }
         });
     }
@@ -320,12 +320,12 @@ class Version
      */
     public function setPreRelease($pre)
     {
-        $this->pre = array_values((array) $pre);
+        $this->pre = array_values((array)$pre);
 
         array_walk($this->pre, function(&$v)
         {
             if (preg_match('/^[0-9]+$/', $v)) {
-                $v = (int) $v;
+                $v = (int)$v;
             }
         });
     }
@@ -339,7 +339,7 @@ class Version
      */
     public function setMajor($major)
     {
-        $this->major = (int) $major;
+        $this->major = (int)$major;
     }
 
     /**
@@ -351,7 +351,7 @@ class Version
      */
     public function setMinor($minor)
     {
-        $this->minor = (int) $minor;
+        $this->minor = (int)$minor;
     }
 
     /**
@@ -363,7 +363,7 @@ class Version
      */
     public function setPatch($patch)
     {
-        $this->patch = (int) $patch;
+        $this->patch = (int)$patch;
     }
 
     /**
@@ -382,10 +382,7 @@ class Version
         $this->pre = null;
 
         if (false === static::isValid($string)) {
-            throw new InvalidArgumentException(sprintf(
-                'The version string "%s" is invalid.',
-                $string
-            ));
+            throw new InvalidArgumentException(sprintf('The version string "%s" is invalid.', $string));
         }
 
         if (false !== strpos($string, '+')) {
@@ -402,14 +399,14 @@ class Version
 
         $version = explode('.', $string);
 
-        $this->major = (int) $version[0];
+        $this->major = (int)$version[0];
 
         if (isset($version[1])) {
-            $this->minor = (int) $version[1];
+            $this->minor = (int)$version[1];
         }
 
         if (isset($version[2])) {
-            $this->patch = (int) $version[2];
+            $this->patch = (int)$version[2];
         }
     }
 
@@ -431,7 +428,6 @@ class Version
         } else {
             $l = 1;
             $r = -1;
-
             $x = $b;
             $y = $a;
         }
@@ -450,8 +446,7 @@ class Version
 
             if ($xi && $yi) {
                 return ($x[$i] > $y[$i]) ? $l : $r;
-            } elseif ((false === $xi) && (false === $yi))
-            {
+            } elseif ((false === $xi) && (false === $yi)) {
                 return (max($x[$i], $y[$i]) == $x[$i]) ? $l : $r;
             } else {
                 return $xi ? $r : $l;
@@ -460,4 +455,5 @@ class Version
 
         return 0;
     }
+
 }

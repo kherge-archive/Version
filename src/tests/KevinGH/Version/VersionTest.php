@@ -17,10 +17,7 @@ class VersionTest extends PHPUnit_Framework_TestCase
 {
     public function testCreate()
     {
-        $this->assertInstanceOf(
-            'KevinGH\Version\Version',
-            $version = Version::create('1.0.0')
-        );
+        $this->assertInstanceOf('KevinGH\Version\Version', $version = Version::create('1.0.0'));
 
         $this->assertEquals(1, $version->getMajor());
         $this->assertEquals(0, $version->getMinor());
@@ -128,7 +125,7 @@ class VersionTest extends PHPUnit_Framework_TestCase
      */
     public function testStable($version)
     {
-        $stable = ! (bool) strpos($version, '-');
+        $stable = !(bool) strpos($version, '-');
 
         $version = new Version($version);
 
@@ -189,46 +186,133 @@ class VersionTest extends PHPUnit_Framework_TestCase
 
     public function getCompareDataSet()
     {
-        return array_merge(
-            $this->getLessDataSet(),
-            $this->getGreaterDataSet(),
-            $this->getEqualDataSet()
-        );
+        return array_merge($this->getLessDataSet(), $this->getGreaterDataSet(), $this->getEqualDataSet());
     }
 
     public function getEqualDataSet()
     {
         return array(
-            array('1.0.0-alpha', '1.0.0-alpha', 0),
-            array('1.0.0-alpha.1', '1.0.0-alpha.1', 0),
-            array('1.0.0-beta.2', '1.0.0-beta.2', 0),
-            array('1.0.0-beta.11', '1.0.0-beta.11', 0),
-            array('1.0.0-rc.1', '1.0.0-rc.1', 0),
-            array('1.0.0-rc.1+build.1', '1.0.0-rc.1+build.1', 0),
-            array('1.0.0', '1.0.0', 0),
-            array('1.0.0+0.3.7', '1.0.0+0.3.7', 0),
-            array('1.3.7+build', '1.3.7+build', 0),
-            array('1.3.7+build.2.b8f12d7', '1.3.7+build.2.b8f12d7', 0),
-            array('1.3.7+build.11.e0f985a', '1.3.7+build.11.e0f985a', 0)
+            array(
+                '1.0.0-alpha',
+                '1.0.0-alpha',
+                0
+            ),
+            array(
+                '1.0.0-alpha.1',
+                '1.0.0-alpha.1',
+                0
+            ),
+            array(
+                '1.0.0-beta.2',
+                '1.0.0-beta.2',
+                0
+            ),
+            array(
+                '1.0.0-beta.11',
+                '1.0.0-beta.11',
+                0
+            ),
+            array(
+                '1.0.0-rc.1',
+                '1.0.0-rc.1',
+                0
+            ),
+            array(
+                '1.0.0-rc.1+build.1',
+                '1.0.0-rc.1+build.1',
+                0
+            ),
+            array(
+                '1.0.0',
+                '1.0.0',
+                0
+            ),
+            array(
+                '1.0.0+0.3.7',
+                '1.0.0+0.3.7',
+                0
+            ),
+            array(
+                '1.3.7+build',
+                '1.3.7+build',
+                0
+            ),
+            array(
+                '1.3.7+build.2.b8f12d7',
+                '1.3.7+build.2.b8f12d7',
+                0
+            ),
+            array(
+                '1.3.7+build.11.e0f985a',
+                '1.3.7+build.11.e0f985a',
+                0
+            )
         );
     }
 
     public function getLessDataSet()
     {
         return array(
-            array('1.0.0-alpha', '1.0.0-alpha.1', 1),
-            array('1.0.0-alpha.1', '1.0.0-alpha.1.1', 1),
-            array('1.0.0-alpha.1', '1.0.0-beta.2', 1),
-            array('1.0.0-beta.2', '1.0.0-beta.11', 1),
-            array('1.0.0-beta.11', '1.0.0-rc.1', 1),
-            array('1.0.0-rc.1', '1.0.0-rc.1+build.1', 1),
-            array('1.0.0-rc.1+build.1', '1.0.0', 1),
-            array('1.0.0', '1.0.0+0.3.7', 1),
-            array('1.0.0+0.3.7', '1.3.7+build', 1),
-            array('1.3.7+build', '1.3.7+build.2.b8f12d7', 1),
-            array('1.3.7+build.2.b8f12d7', '1.3.7+build.11.e0f985a', 1),
-
-            array('1.3.7+1', '1.3.7+build.2', 1),
+            array(
+                '1.0.0-alpha',
+                '1.0.0-alpha.1',
+                1
+            ),
+            array(
+                '1.0.0-alpha.1',
+                '1.0.0-alpha.1.1',
+                1
+            ),
+            array(
+                '1.0.0-alpha.1',
+                '1.0.0-beta.2',
+                1
+            ),
+            array(
+                '1.0.0-beta.2',
+                '1.0.0-beta.11',
+                1
+            ),
+            array(
+                '1.0.0-beta.11',
+                '1.0.0-rc.1',
+                1
+            ),
+            array(
+                '1.0.0-rc.1',
+                '1.0.0-rc.1+build.1',
+                1
+            ),
+            array(
+                '1.0.0-rc.1+build.1',
+                '1.0.0',
+                1
+            ),
+            array(
+                '1.0.0',
+                '1.0.0+0.3.7',
+                1
+            ),
+            array(
+                '1.0.0+0.3.7',
+                '1.3.7+build',
+                1
+            ),
+            array(
+                '1.3.7+build',
+                '1.3.7+build.2.b8f12d7',
+                1
+            ),
+            array(
+                '1.3.7+build.2.b8f12d7',
+                '1.3.7+build.11.e0f985a',
+                1
+            ),
+            array(
+                '1.3.7+1',
+                '1.3.7+build.2',
+                1
+            ),
         );
     }
 
@@ -254,115 +338,242 @@ class VersionTest extends PHPUnit_Framework_TestCase
     public function getGreaterDataSet()
     {
         return array(
-            array('1.0.0-alpha.1', '1.0.0-alpha', -1),
-            array('1.0.0-beta.2', '1.0.0-alpha.1', -1),
-            array('1.0.0-beta.11', '1.0.0-beta.2', -1),
-            array('1.0.0-rc.1', '1.0.0-beta.11', -1),
-            array('1.0.0-rc.1+build.1', '1.0.0-rc.1', -1),
-            array('1.0.0', '1.0.0-rc.1+build.1', -1),
-            array('1.0.0+0.3.7', '1.0.0', -1),
-            array('1.3.7+build', '1.0.0+0.3.7', -1),
-            array('1.3.7+build.2.b8f12d7', '1.3.7+build', -1),
-            array('1.3.7+build.11.e0f985a', '1.3.7+build.2.b8f12d7', -1),
-
-            array('1.3.7+build.2', '1.3.7+1', -1),
+            array(
+                '1.0.0-alpha.1',
+                '1.0.0-alpha',
+                -1
+            ),
+            array(
+                '1.0.0-beta.2',
+                '1.0.0-alpha.1',
+                -1
+            ),
+            array(
+                '1.0.0-beta.11',
+                '1.0.0-beta.2',
+                -1
+            ),
+            array(
+                '1.0.0-rc.1',
+                '1.0.0-beta.11',
+                -1
+            ),
+            array(
+                '1.0.0-rc.1+build.1',
+                '1.0.0-rc.1',
+                -1
+            ),
+            array(
+                '1.0.0',
+                '1.0.0-rc.1+build.1',
+                -1
+            ),
+            array(
+                '1.0.0+0.3.7',
+                '1.0.0',
+                -1
+            ),
+            array(
+                '1.3.7+build',
+                '1.0.0+0.3.7',
+                -1
+            ),
+            array(
+                '1.3.7+build.2.b8f12d7',
+                '1.3.7+build',
+                -1
+            ),
+            array(
+                '1.3.7+build.11.e0f985a',
+                '1.3.7+build.2.b8f12d7',
+                -1
+            ),
+            array(
+                '1.3.7+build.2',
+                '1.3.7+1',
+                -1
+            ),
         );
     }
 
     public function getParseDataSet()
     {
         return array(
-            array('1.0.0-0.x.1.b', array(
-                'major' => 1,
-                'minor' => 0,
-                'patch' => 0,
-                'pre' => array(0, 'x', 1, 'b'),
-                'build' => null
-            )),
-            array('1.0.0-0.x.1.b+build.123.abcdef1', array(
-                'major' => 1,
-                'minor' => 0,
-                'patch' => 0,
-                'pre' => array(0, 'x', 1, 'b'),
-                'build' => array('build', 123, 'abcdef1')
-            )),
-            array('1.0.0-alpha', array(
-                'major' => 1,
-                'minor' => 0,
-                'patch' => 0,
-                'pre' => array('alpha'),
-                'build' => null
-            )),
-            array('1.0.0-alpha.1', array(
-                'major' => 1,
-                'minor' => 0,
-                'patch' => 0,
-                'pre' => array('alpha', 1),
-                'build' => null
-            )),
-            array('1.0.0-beta.2', array(
-                'major' => 1,
-                'minor' => 0,
-                'patch' => 0,
-                'pre' => array('beta', 2),
-                'build' => null
-            )),
-            array('1.0.0-beta.11', array(
-                'major' => 1,
-                'minor' => 0,
-                'patch' => 0,
-                'pre' => array('beta', 11),
-                'build' => null
-            )),
-            array('1.0.0-rc.1', array(
-                'major' => 1,
-                'minor' => 0,
-                'patch' => 0,
-                'pre' => array('rc', 1),
-                'build' => null
-            )),
-            array('1.0.0-rc.1+build.1', array(
-                'major' => 1,
-                'minor' => 0,
-                'patch' => 0,
-                'pre' => array('rc', 1),
-                'build' => array('build', 1)
-            )),
-            array('1.0.0', array(
-                'major' => 1,
-                'minor' => 0,
-                'patch' => 0,
-                'pre' => null,
-                'build' => null
-            )),
-            array('1.0.0+0.3.7', array(
-                'major' => 1,
-                'minor' => 0,
-                'patch' => 0,
-                'pre' => null,
-                'build' => array(0, 3, 7)
-            )),
-            array('1.3.7+build', array(
-                'major' => 1,
-                'minor' => 3,
-                'patch' => 7,
-                'pre' => null,
-                'build' => array('build')
-            )),
-            array('1.3.7+build.2.b8f12d7', array(
-                'major' => 1,
-                'minor' => 3,
-                'patch' => 7,
-                'pre' => null,
-                'build' => array('build', 2, 'b8f12d7')
-            )),
-            array('1.3.7+build.11.e0f985a', array(
-                'major' => 1,
-                'minor' => 3,
-                'patch' => 7,
-                'pre' => null,
-                'build' => array('build', 11, 'e0f985a')
-            ))
+            array(
+                '1.0.0-0.x.1.b',
+                array(
+                    'major' => 1,
+                    'minor' => 0,
+                    'patch' => 0,
+                    'pre' => array(
+                        0,
+                        'x',
+                        1,
+                        'b'
+                    ),
+                    'build' => null
+                )
+            ),
+            array(
+                '1.0.0-0.x.1.b+build.123.abcdef1',
+                array(
+                    'major' => 1,
+                    'minor' => 0,
+                    'patch' => 0,
+                    'pre' => array(
+                        0,
+                        'x',
+                        1,
+                        'b'
+                    ),
+                    'build' => array(
+                        'build',
+                        123,
+                        'abcdef1'
+                    )
+                )
+            ),
+            array(
+                '1.0.0-alpha',
+                array(
+                    'major' => 1,
+                    'minor' => 0,
+                    'patch' => 0,
+                    'pre' => array('alpha'),
+                    'build' => null
+                )
+            ),
+            array(
+                '1.0.0-alpha.1',
+                array(
+                    'major' => 1,
+                    'minor' => 0,
+                    'patch' => 0,
+                    'pre' => array(
+                        'alpha',
+                        1
+                    ),
+                    'build' => null
+                )
+            ),
+            array(
+                '1.0.0-beta.2',
+                array(
+                    'major' => 1,
+                    'minor' => 0,
+                    'patch' => 0,
+                    'pre' => array(
+                        'beta',
+                        2
+                    ),
+                    'build' => null
+                )
+            ),
+            array(
+                '1.0.0-beta.11',
+                array(
+                    'major' => 1,
+                    'minor' => 0,
+                    'patch' => 0,
+                    'pre' => array(
+                        'beta',
+                        11
+                    ),
+                    'build' => null
+                )
+            ),
+            array(
+                '1.0.0-rc.1',
+                array(
+                    'major' => 1,
+                    'minor' => 0,
+                    'patch' => 0,
+                    'pre' => array(
+                        'rc',
+                        1
+                    ),
+                    'build' => null
+                )
+            ),
+            array(
+                '1.0.0-rc.1+build.1',
+                array(
+                    'major' => 1,
+                    'minor' => 0,
+                    'patch' => 0,
+                    'pre' => array(
+                        'rc',
+                        1
+                    ),
+                    'build' => array(
+                        'build',
+                        1
+                    )
+                )
+            ),
+            array(
+                '1.0.0',
+                array(
+                    'major' => 1,
+                    'minor' => 0,
+                    'patch' => 0,
+                    'pre' => null,
+                    'build' => null
+                )
+            ),
+            array(
+                '1.0.0+0.3.7',
+                array(
+                    'major' => 1,
+                    'minor' => 0,
+                    'patch' => 0,
+                    'pre' => null,
+                    'build' => array(
+                        0,
+                        3,
+                        7
+                    )
+                )
+            ),
+            array(
+                '1.3.7+build',
+                array(
+                    'major' => 1,
+                    'minor' => 3,
+                    'patch' => 7,
+                    'pre' => null,
+                    'build' => array('build')
+                )
+            ),
+            array(
+                '1.3.7+build.2.b8f12d7',
+                array(
+                    'major' => 1,
+                    'minor' => 3,
+                    'patch' => 7,
+                    'pre' => null,
+                    'build' => array(
+                        'build',
+                        2,
+                        'b8f12d7'
+                    )
+                )
+            ),
+            array(
+                '1.3.7+build.11.e0f985a',
+                array(
+                    'major' => 1,
+                    'minor' => 3,
+                    'patch' => 7,
+                    'pre' => null,
+                    'build' => array(
+                        'build',
+                        11,
+                        'e0f985a'
+                    )
+                )
+            )
         );
     }
+
 }
