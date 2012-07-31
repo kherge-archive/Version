@@ -303,8 +303,7 @@ class Version
     {
         $this->build = array_values((array)$build);
 
-        array_walk($this->build, function(&$v)
-        {
+        array_walk($this->build, function (&$v) {
             if (preg_match('/^[0-9]+$/', $v)) {
                 $v = (int)$v;
             }
@@ -322,8 +321,7 @@ class Version
     {
         $this->pre = array_values((array)$pre);
 
-        array_walk($this->pre, function(&$v)
-        {
+        array_walk($this->pre, function (&$v) {
             if (preg_match('/^[0-9]+$/', $v)) {
                 $v = (int)$v;
             }
@@ -455,5 +453,5 @@ class Version
 
         return 0;
     }
-
 }
+
