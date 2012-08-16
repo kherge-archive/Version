@@ -172,14 +172,17 @@ class VersionTest extends PHPUnit_Framework_TestCase
     {
         return array(
             array('x.0.0-0.x.1.b'),
+            array('0.0.0-'),
+            array('0.0.0-1.'),
             array('1.x.0-0.x.1.b+build.123.abcdef1'),
             array('1.0.x-alpha'),
             array('1.0.0-!.1'),
             array('1.0.0-beta!2'),
             array('1.0.0-rc.1!build.1'),
+            array('1.0.0+'),
             array('1.0.0!0.3.7'),
             array('1.3.7!build'),
-            array('1.3.7+build.!.b8f12d7'),
+            array('1.3.7+build.1.'),
             array('1.3.7+build.11!e0f985a')
         );
     }
@@ -192,6 +195,16 @@ class VersionTest extends PHPUnit_Framework_TestCase
     public function getEqualDataSet()
     {
         return array(
+            array(
+                '0.0.0-alpha',
+                '0.0.0-alpha',
+                0
+            ),
+            array(
+                '0.1.0-alpha',
+                '0.1.0-alpha',
+                0
+            ),
             array(
                 '1.0.0-alpha',
                 '1.0.0-alpha',
@@ -253,6 +266,16 @@ class VersionTest extends PHPUnit_Framework_TestCase
     public function getLessDataSet()
     {
         return array(
+            array(
+                '0.1.0-alpha.1',
+                '0.1.1-alpha.1',
+                1
+            ),
+            array(
+                '0.1.0-alpha.1',
+                '1.0.0-alpha.1',
+                1
+            ),
             array(
                 '1.0.0-alpha',
                 '1.0.0-alpha.1',
@@ -338,6 +361,16 @@ class VersionTest extends PHPUnit_Framework_TestCase
     public function getGreaterDataSet()
     {
         return array(
+            array(
+                '0.1.1-alpha.1',
+                '0.1.0-alpha.1',
+                -1
+            ),
+            array(
+                '1.0.0-alpha.1',
+                '0.1.0-alpha.1',
+                -1
+            ),
             array(
                 '1.0.0-alpha.1',
                 '1.0.0-alpha',
