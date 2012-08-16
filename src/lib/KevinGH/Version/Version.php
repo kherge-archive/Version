@@ -25,7 +25,7 @@ class Version
      *
      * @var string
      */
-    const REGEX = '/^([0-9]+\.{0,1}){1,3}(\-([a-z0-9]+\.{0,1})+){0,1}(\+(build\.{0,1}){0,1}([a-z0-9]+\.{0,1}){0,}){0,1}$/';
+    const REGEX = '/^\d+\.\d+\.\d+(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/';
 
     /**
      * The build information.
@@ -116,6 +116,8 @@ class Version
         switch (true) {
             case ($this->major < $major):
                 return 1;
+            case ($this->major > $major):
+                return -1;
             case ($this->minor > $minor):
                 return -1;
             case ($this->minor < $minor):
@@ -124,7 +126,9 @@ class Version
                 return -1;
             case ($this->patch < $patch):
                 return 1;
+            // @codeCoverageIgnoreStart
         }
+        // @codeCoverageIgnoreEnd
 
         if ($pre || $this->pre) {
             if (empty($this->pre) && $pre) {
@@ -206,7 +210,7 @@ class Version
      */
     public function isLessThan(Version $version)
     {
-        return $version->isGreaterThan($this);
+        return (0 < $this->compareTo($version));
     }
 
     /**
