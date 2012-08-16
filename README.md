@@ -10,7 +10,7 @@ To install Version, you must add it to the list of dependencies in your [`compos
 
     $ php composer.phar require kherge/version=1.*
 
-If you are not using Composer to manage your dependencies, you may use any [PSR-0][PSR-0] class loader to load Wisdom.
+If you are not using Composer to manage your dependencies, you may use any [PSR-0][PSR-0] class loader to load it from the `src/lib` directory.
 
 ## Usage
 
