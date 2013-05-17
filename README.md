@@ -1,5 +1,7 @@
 # Version
 
+I am no longer maintaining this library. This project has been deprecated in favor of [Herrera.io php-version](https://github.com/herrera-io/php-version). If you would like to take over development of this project, please email me.
+
 [![Build Status](https://secure.travis-ci.org/kherge/Version.png?branch=master)](http://travis-ci.org/kherge/Version)
 
 A parsing and comparison library for [semantic versioning](http://semver.org/).
